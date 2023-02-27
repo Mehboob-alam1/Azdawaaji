@@ -13,28 +13,31 @@ import com.mehboob.azdawaaj.databinding.ActivityLoginBinding;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
-private ActivityLoginBinding binding;
+    private ActivityLoginBinding binding;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     "(?=.*[@#$%^&+=])" +     // at least 1 special character
                     "(?=\\S+$)" +            // no white spaces
                     ".{4,}" +                // at least 4 characters
                     "$");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.btnRegister.setOnClickListener(v -> {
+    startActivity(new Intent(LoginActivity.this,CreateAccountActivity.class));
+        });
         binding.btnLogin.setOnClickListener(v -> {
-confirmInput();
+            confirmInput();
         });
     }
 
     public void confirmInput() {
         if (!validateEmail() | !validatePassword()) {
             return;
-        }else{
+        } else {
 
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
